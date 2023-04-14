@@ -7,4 +7,16 @@ const STATUS = {
     FAILED: -1
 }
 
-module.exports = { RESPONSE_MSG, STATUS }
+const VALIDATION_CONSTANTS = {
+    PERCENTAGE : 100,
+    SCHEME_NAME : ' ',
+    SCHEME_ID: 1
+}
+
+module.exports = { 
+    RESPONSE_MSG,
+    STATUS,
+    VALIDATION_CONSTANTS
+}
+
+
