@@ -1,0 +1,18 @@
+<table class="taxTable w-100">
+  <tbody class="highlight">
+    {% for tax in data['taxes'] %}
+        <tr>
+            <td>{{tax['taxName']}}</td>
+            <td>{{tax['taxPercentage']}}%</td>
+            <td class="alignRight">{{data['currencySymbol']}} {{tax['taxAmount']}}</td>
+        </tr>
+    {% endfor %} 
+  </tbody>
+    <tfoot class="taxesTotal highlight">
+      <tr>
+        <td colspan="2"><b>{{data['totalWithTaxName']}}</b></td>
+        <td class="alignRight"><b>{{data['currencySymbol']}} {{data['totalWithTax']}}</b></td>
+      </tr>
+    </tfoot>
+    
+  </table>
