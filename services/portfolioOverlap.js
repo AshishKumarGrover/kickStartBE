@@ -59,7 +59,7 @@ const getPortfolioOverlap = async (request, response) => {
           holdingsB: "",
           netAssetA: holdingA[i].netAsset,
           netAssetB: 0,
-        };
+        }
         k++
       }
     }
@@ -76,7 +76,7 @@ const getPortfolioOverlap = async (request, response) => {
               holdingsB: holdingB[i] ? holdingB[i].holdings : "",
               netAssetA: 0,
               netAssetB: holdingB[i] ? holdingB[i].netAsset : 0,
-            };
+            }
             l++
           }
         }
@@ -96,23 +96,23 @@ const getPortfolioOverlap = async (request, response) => {
     let n = 0
     for (let i = k; i < k + l - 1; i++) {
       holding[i] = sample[n];
-      n++;
+      n++
     }
 
     // find sumNetAssetHoldingA
     const sumNetAssetHoldingA = holdingA
       .filter((h1) => !holdingB.some((h2) => h2.holdings === h1.holdings))
-      .reduce((total, h1) => total + h1.netAsset, 0);
+      .reduce((total, h1) => total + h1.netAsset, 0)
 
     // find sumNetAssetHoldingB
     const sumNetAssetHoldingB = holdingB
       .filter((h2) => !holdingA.some((h1) => h1.holdings === h2.holdings))
-      .reduce((total, h2) => total + h2.netAsset, 0);
+      .reduce((total, h2) => total + h2.netAsset, 0)
 
     // for finding common holdings
     const commonHoldings = holdingA.filter((h1) =>
       holdingB.some((h2) => h2.holdings === h1.holdings)
-    );
+    )
 
     const result = {
       holding: holding,
@@ -136,7 +136,7 @@ const getPortfolioOverlap = async (request, response) => {
         TotalHoldingsInB: totalHoldingsInB,
       },
     };
-    return result;
+    return result
   } catch (error) {
     response.send({
       status: -1,
@@ -144,9 +144,9 @@ const getPortfolioOverlap = async (request, response) => {
       result: error,
     })
   }
-};
+}
 
 module.exports = {
   getSchemes,
   getPortfolioOverlap,
-};
+}
