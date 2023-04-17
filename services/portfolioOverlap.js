@@ -1,24 +1,18 @@
 const {getSchemesData,fetchPortfolioOverlap} = require("../repositories/portfolioOverlap")
 const { VALIDATION_CONSTANTS,RESPONSE_MSG} = require("../constants/index")
-const getSchemes = async (request, response) => {
+const getSchemes = async (obj) => {
   try {
-    const schemes = await getSchemesData(request)
-    return schemes;
+    return getSchemesData(obj)
   } catch (error) {
-    response.send({
-      status: -1,
-      message: RESPONSE_MSG.FAILED,
-      result: error,
-    })
+    throw error
   }
 }
 
-const getPortfolioOverlap = async (request, response) => {
+const getPortfolioOverlap = async (obj,obj2) => {
   try {
-    const schemeHoldings = await fetchPortfolioOverlap(request)
+    const schemeHoldings = await fetchPortfolioOverlap(obj,obj2)
     const holdingA = schemeHoldings.holdingA
     const holdingB = schemeHoldings.holdingB
-
     const totalHoldingsInA = holdingA.length
     const totalHoldingsInB = holdingB.length
 
@@ -39,6 +33,7 @@ const getPortfolioOverlap = async (request, response) => {
             netAssetB: holdingB[j].netAsset,
           }
           k++
+          // overlap percentage
           percentage += Math.min(holdingA[i].netAsset, holdingB[j].netAsset)
           break
         } else {
@@ -115,7 +110,7 @@ const getPortfolioOverlap = async (request, response) => {
     )
 
     const result = {
-      holding: holding,
+      holding,
       overlapValue: {
         holdingAOnlyNetAsset: Math.round(sumNetAssetHoldingA),
         holdingBOnlyNetAsset: Math.round(sumNetAssetHoldingB),
@@ -140,8 +135,7 @@ const getPortfolioOverlap = async (request, response) => {
   } catch (error) {
     response.send({
       status: -1,
-      message: RESPONSE_MSG.FAILED,
-      result: error,
+      message: RESPONSE_MSG.FAILED
     })
   }
 }

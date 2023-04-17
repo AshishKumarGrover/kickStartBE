@@ -2,14 +2,13 @@ const { RESPONSE_MSG } = require("../constants/index")
 const { scheme, schemeholding, sequelize } = require("../models/index")
 const { QueryTypes } = require("sequelize")
 
-const getSchemesData = async (request, response) => {
+const getSchemesData = async (schemeName) => {
   try {
-    const schemeName = request.query.name
     const schemes = await scheme.sequelize.query(
       `SELECT orgsch, schemeDetails.schid 
             FROM schemeDetails 
             INNER JOIN schemes ON schemeDetails.schid = schemes.schid 
-            WHERE mfTally ='Y' AND schemes.fsid IS NOT NULL AND name like "%${schemeName}%"`,
+            WHERE mfTally ='Y'  AND name like "%${schemeName}%"`,
       {
         type: QueryTypes.SELECT,
       }
@@ -24,10 +23,8 @@ const getSchemesData = async (request, response) => {
   }
 }
 
-const fetchPortfolioOverlap = async (request, response) => {
+const fetchPortfolioOverlap = async (schid1,schid2) => {
   try {
-    const schid1 = request.query.schid1
-    const schid2 = request.query.schid2
     if (!schid1 || !schid2) {
       return "Enter scheme Id"
     } else {
