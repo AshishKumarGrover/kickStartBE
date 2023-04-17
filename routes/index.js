@@ -7,6 +7,6 @@ const downloadInvoice = require('../controllers/downloadInvoice')
 // router.post('/sipStepUpCalculator', sipCalculatorCtrl.sipStepUpCalculator)
 // router.post('/sipDelayCalculator', sipCalculatorCtrl.sipDelayCalculator)
 
-router.post('/downloadInvoice', downloadInvoice.downloadInvoiceController)
+router.get('/downloadInvoice', downloadInvoice.downloadInvoiceController)
 
 module.exports = router

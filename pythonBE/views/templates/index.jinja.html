@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tax Invoice</title>
+    <style>
+    *{
+        margin:0;
+        padding:0;
+        box-sizing: border-box;
+    }
+    .outerContainer {
+        width: 80%;
+        margin: 20px auto;
+        background-color: white;
+        color: #444;
+        font-family: Verdana, Geneva, Tahoma, sans-serif;
+    }
+    .headerInfo {
+        display: flex;
+        flex-direction: row;
+        justify-content:space-between;
+        width: 100%;
+        margin: 25px 0;
+        line-height: 2;
+    }
+    .heading{
+        font-size: 26px;
+        font-weight: 700;
+        color: black;
+        margin: 10px 0;
+    }
+    .highlight{
+        font-weight: 700;
+        color: black;
+    }
+    .alignRight{
+        text-align: right;
+    }
+    .alignLeft{
+        text-align: left;
+    }
+    .alignCenter{
+        text-align: center;
+    }
+    .userMessage {
+        margin: 30px 0;
+        line-height: 1.5;
+    }
+    .w-100{
+        width: 100%;
+    }
+
+    .itemTable, .taxTable{
+        border-collapse: collapse;
+        line-height: 2;
+        margin-top: 20px;
+        color: #444;
+    }
+    .itemsTotal{
+        line-height: 3;
+    }
+    .taxesTotal{
+        line-height: 3;
+    }
+    .conclusionMessage{
+        margin-top: 25px;
+        line-height: 1.5;
+    }
+    </style>
+</head>
+<body>
+    <div class='outerContainer'>
+        <div class="headerInfo">
+            {% include 'headerInfo.jinja.html' %}
+        </div>
+            <hr/>
+            <div class="userMessage">
+                {% include 'userMessage.jinja.html' %}
+            </div>
+            {% include 'itemsTable.jinja.html' %}
+            {% include 'taxesTable.jinja.html' %}
+            <div class="conclusionMessage">
+                {% include 'conclusionMessage.jinja.html' %}
+            </div>
+    </div>
+</body>
+</html>
+
