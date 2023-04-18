@@ -7,4 +7,6 @@ const STATUS = {
     FAILED: -1
 }
 
-module.exports = { RESPONSE_MSG, STATUS }
+const VALIDATION = 3
+
+module.exports = { VALIDATION }

@@ -1,9 +1,7 @@
 const express = require('express')
 const router = express.Router()
-const sipCalculatorCtrl = require('../controllers/sipCalculator')
+const controller = require('../controllers/index')
 
-router.post('/sipCalculator', sipCalculatorCtrl.sipCalculator)
-router.post('/sipStepUpCalculator', sipCalculatorCtrl.sipStepUpCalculator)
-router.post('/sipDelayCalculator', sipCalculatorCtrl.sipDelayCalculator)
-
+router.get('/getSchemes', controller.getSchemes)
+router.get('/getNavs', controller.getNavs)
 module.exports = router
