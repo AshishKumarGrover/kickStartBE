@@ -1,23 +1,18 @@
 const axios = require('axios')
 
 const downloadInvoiceService = async (reqQuery) => {
-    const options = {
-        url: 'http://localhost:8000/pythonDownloadInvoice',
-        method: 'POST',
-        headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json;charset=UTF-8'
-        },
-        data: reqQuery
-      }
-
-      let result;
-      
-      await axios(options)
-        .then(response => {
-          result = response.data
-        })
+  try{
+  const response = await axios({
+      url: 'http://localhost:8000/pythonDownloadInvoice',
+      method: 'POST',
+      data: reqQuery
+    })
+    const result = response && response.data
     return result
+  }
+  catch(error){
+    throw error
+  } 
 }
 
 module.exports = {

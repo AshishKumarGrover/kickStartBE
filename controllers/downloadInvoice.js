@@ -6,16 +6,13 @@ const path = require('path')
 const downloadInvoiceController = async (request, response) => {
     try{
         const reqQuery = JSON.parse(request.query.data);
-        console.log(reqQuery)
         const htmlCode = await downloadInvoice.downloadInvoiceService(reqQuery);
-        console.log(htmlCode)
         const pdfFilePath = path.join(__dirname, '..', 'invoice.pdf')
         const options = { 
             format: 'A4',
             path: pdfFilePath
         }
         const file = { content: htmlCode};
-
         html_to_pdf.generatePdf(file, options)
         .then((pdfBuffer)=>{
             console.log("Pdf generated successfully")
@@ -40,10 +37,6 @@ const downloadInvoiceController = async (request, response) => {
             result: error
         })
     }
-    // const reqQuery = JSON.parse(request.query.data);
-    // const htmlCode = await downloadInvoice.downloadInvoiceService(reqQuery);
-    // response.send(htmlCode)
-    
 }
 
 module.exports = {

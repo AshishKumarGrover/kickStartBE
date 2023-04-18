@@ -69,6 +69,9 @@
         margin-top: 25px;
         line-height: 1.5;
     }
+    .preserveFormat{
+        white-space: pre-wrap;
+    }
     </style>
 </head>
 <body>
@@ -76,15 +79,15 @@
         <div class="headerInfo">
             {% include 'headerInfo.jinja.html' %}
         </div>
-            <hr/>
-            <div class="userMessage">
-                {% include 'userMessage.jinja.html' %}
-            </div>
-            {% include 'itemsTable.jinja.html' %}
-            {% include 'taxesTable.jinja.html' %}
-            <div class="conclusionMessage">
-                {% include 'conclusionMessage.jinja.html' %}
-            </div>
+        <hr/>
+        <div class="userMessage preserveFormat">
+            {% include 'userMessage.jinja.html' %}
+        </div>
+        {% include 'itemsTable.jinja.html' %}
+        {% include 'taxesTable.jinja.html' %}
+        <div class="conclusionMessage preserveFormat">
+            {% include 'conclusionMessage.jinja.html' %}
+        </div>
     </div>
 </body>
 </html>
