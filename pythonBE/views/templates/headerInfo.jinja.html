@@ -1,8 +1,6 @@
 <div class="leftContainer">
     <div class="heading">{{data['advisoryCompanyName']}}</div>
-    {% for addressline in data['address'] %}
-        <div>{{addressline}}</div>
-    {% endfor %}
+    <p>{{data['address']}}</p>
     <div>{{data['contactNo']}}</div>
     <div>{{data['email']}}</div>
 </div>

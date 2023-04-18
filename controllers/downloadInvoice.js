@@ -4,11 +4,11 @@ const html_to_pdf = require('html-pdf-node')
 const path = require('path')
 
 const downloadInvoiceController = async (request, response) => {
- 
     try{
         const reqQuery = JSON.parse(request.query.data);
+        console.log(reqQuery)
         const htmlCode = await downloadInvoice.downloadInvoiceService(reqQuery);
-
+        console.log(htmlCode)
         const pdfFilePath = path.join(__dirname, '..', 'invoice.pdf')
         const options = { 
             format: 'A4',
@@ -40,6 +40,9 @@ const downloadInvoiceController = async (request, response) => {
             result: error
         })
     }
+    // const reqQuery = JSON.parse(request.query.data);
+    // const htmlCode = await downloadInvoice.downloadInvoiceService(reqQuery);
+    // response.send(htmlCode)
     
 }
 

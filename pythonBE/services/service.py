@@ -3,7 +3,7 @@ from jinja2 import Environment, FileSystemLoader
 import os
 
 def downloadInvoiceService(reqBody):
-    env = Environment(loader=FileSystemLoader('views/templates'))
+    env = Environment(loader=FileSystemLoader('views/templates'), lstrip_blocks=True,trim_blocks=True)
     template = env.get_template('index.jinja.html')
     dictObj =  eval(reqBody.decode('utf8')) #Extracting data comming from FE
     output_from_parsed_template = template.render(data=dictObj)

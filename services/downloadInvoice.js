@@ -2,7 +2,7 @@ const axios = require('axios')
 
 const downloadInvoiceService = async (reqQuery) => {
     const options = {
-        url: 'http://localhost:8080/pythonDownloadInvoice',
+        url: 'http://localhost:8000/pythonDownloadInvoice',
         method: 'POST',
         headers: {
           'Accept': 'application/json',
