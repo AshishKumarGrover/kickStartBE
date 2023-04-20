@@ -5,8 +5,12 @@ const path = require('path')
 
 const downloadInvoiceController = async (request, response) => {
     try{
-        const reqQuery = JSON.parse(request.query.data);
-        const htmlCode = await downloadInvoice.downloadInvoiceService(reqQuery);
+        let reqQuery = request.query.data.replaceAll("hashSymbol", "#")
+        reqQuery = reqQuery.replaceAll("ampersandSymbol", "&")
+        reqQuery = reqQuery.replaceAll("percentageSymbol", "%")
+        reqQuery = reqQuery.replaceAll("plusSymbol", "+")
+        reqQuery = JSON.parse(reqQuery)
+        const htmlCode = await downloadInvoice.downloadInvoiceService(reqQuery)
         const pdfFilePath = path.join(__dirname, '..', 'invoice.pdf')
         const options = { 
             format: 'A4',
@@ -34,7 +38,7 @@ const downloadInvoiceController = async (request, response) => {
         response.send({
             status: -1,
             message: "Request Failed",
-            result: error
+            result: error.message
         })
     }
 }
