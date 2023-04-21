@@ -111,7 +111,7 @@ const getPortfolioOverlap = async (obj,obj2) => {
 
     const result = {
       holding,
-      overlapValue: {
+      vennDiagram: {
         holdingAOnlyNetAsset: Math.round(sumNetAssetHoldingA),
         holdingBOnlyNetAsset: Math.round(sumNetAssetHoldingB),
         commonHoldingA: Math.round(
@@ -122,13 +122,13 @@ const getPortfolioOverlap = async (obj,obj2) => {
         ),
       },
 
-      vennDiagram: {
-        overlapPercentage: percentage,
-        CommonHoldings: commonHoldings.length,
-        uncommonHoldingsInA: totalHoldingsInA - commonHoldings.length,
-        uncommonHoldingsInB: totalHoldingsInB - commonHoldings.length,
-        TotalHoldingsInA: totalHoldingsInA,
-        TotalHoldingsInB: totalHoldingsInB,
+      overlapValue: {
+        overlapPercentage: Math.round(percentage),
+        commonHoldings: commonHoldings.length,
+        unCommonHoldingsInA: totalHoldingsInA - commonHoldings.length,
+        unCommonHoldingsInB: totalHoldingsInB - commonHoldings.length,
+        totalHoldingsInA: totalHoldingsInA,
+        totalHoldingsInB: totalHoldingsInB,
       },
     };
     return result
