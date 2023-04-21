@@ -8,5 +8,6 @@ const STATUS = {
 }
 
 const VALIDATION = 3
+const ARRAYLENGTH = 0
 
-module.exports = { VALIDATION }
+module.exports = {VALIDATION, ARRAYLENGTH}

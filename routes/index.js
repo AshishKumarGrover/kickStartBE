@@ -4,4 +4,5 @@ const controller = require('../controllers/index')
 
 router.get('/getSchemes', controller.getSchemes)
 router.get('/getNavs', controller.getNavs)
+router.get('/getLaunchDate', controller.getLaunchDate)
 module.exports = router

@@ -7,12 +7,18 @@ const getSchemes = async (category) => {
 }
 
 const getNavs = async(schid, timePeriod)=>{
-    const navs = await repository.getNavs(schid, timePeriod)
-    const correlationMatrix = await calculator(navs)
+    const navData = await repository.getNavs(schid, timePeriod)
+    const correlationMatrix = await calculator(navData)
     return correlationMatrix
+}
+
+const getLaunchDate = async(schid)=>{
+    const launchDate = await repository.getLaunchDate(schid)
+    return launchDate
 }
 
 module.exports = {
     getSchemes,
-    getNavs
+    getNavs,
+    getLaunchDate
 }
