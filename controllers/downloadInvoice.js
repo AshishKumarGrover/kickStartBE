@@ -1,7 +1,7 @@
 const downloadInvoice = require('../services/downloadInvoice')
 const { RESPONSE_MSG, STATUS } = require('../constants')
-const html_to_pdf = require('html-pdf-node')
 const path = require('path')
+const { generatePdf } = require('../utils/index')
 
 const downloadInvoiceController = async (request, response) => {
     try{
@@ -16,23 +16,16 @@ const downloadInvoiceController = async (request, response) => {
             format: 'A4',
             path: pdfFilePath
         }
-        const file = { content: htmlCode};
-        html_to_pdf.generatePdf(file, options)
-        .then((pdfBuffer)=>{
-            console.log("Pdf generated successfully")
-            response.download("invoice.pdf", "tax-invoice.pdf", function (error) {
-                if(error){
-                    console.log("Error: ", error)
-                }else{
-                    console.log("Pdf downloaded successfully")
-                }
-            })
+        const file = { content: htmlCode}
+        await generatePdf(file, options)
+        response.download("invoice.pdf", "tax-invoice.pdf", function (error) {
+            if(error){
+                console.log("Error: ", error)
+                throw error
+            }else{
+                console.log("Pdf downloaded successfully")
+            }
         })
-        .catch((error)=>{
-            console.log("Error ", error)
-            throw error
-        })
-
     }
     catch(error){
         response.send({
