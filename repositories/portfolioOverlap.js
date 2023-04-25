@@ -15,11 +15,7 @@ const getSchemesData = async (schemeName) => {
     )
     return schemes
   } catch (error) {
-    response.send({
-      status: -1,
-      message: RESPONSE_MSG.FAILED,
-      result: error,
-    })
+    throw error
   }
 }
 
@@ -32,7 +28,7 @@ const fetchPortfolioOverlap = async (schid1,schid2) => {
         `SELECT holdings,netAsset 
         FROM schemeHolding
         inner join schemes  
-        where schemes.fsid=schemeHolding.fsid  and schemes.schid= "${schid1}"`,
+        where schemes.fsid = schemeHolding.fsid  and schemes.schid= "${schid1}"`,
         {
           type: QueryTypes.SELECT,
         }
@@ -41,7 +37,7 @@ const fetchPortfolioOverlap = async (schid1,schid2) => {
         `SELECT holdings,netAsset
           FROM schemeHolding
           inner join schemes  
-          where schemes.fsid=schemeHolding.fsid  and schemes.schid= "${schid2}"`,
+          where schemes.fsid = schemeHolding.fsid  and schemes.schid= "${schid2}"`,
         {
           type: QueryTypes.SELECT,
         }
@@ -49,11 +45,7 @@ const fetchPortfolioOverlap = async (schid1,schid2) => {
       return { holdingA, holdingB }
     }
   } catch (error) {
-    response.send({
-      status: -1,
-      message: RESPONSE_MSG.FAILED,
-      result: error,
-    })
+    throw error
   }
 }
 

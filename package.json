@@ -23,5 +23,13 @@
   },
   "devDependencies": {
     "nodemon": "^2.0.22"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AshishKumarGrover/kickStartBE.git"
+  },
+  "bugs": {
+    "url": "https://github.com/AshishKumarGrover/kickStartBE/issues"
+  },
+  "homepage": "https://github.com/AshishKumarGrover/kickStartBE#readme"
 }

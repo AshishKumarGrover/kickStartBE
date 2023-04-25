@@ -18,82 +18,42 @@ const getPortfolioOverlap = async (obj,obj2) => {
 
     let percentage = 0
     let holding = []
-    let k = 0
-    let l = 0
     let sample = []
-
-    // for finding common holdings and data in holdingA which is not present in holding B
-    for (let i = 0; i < holdingA.length; i++) {
-      for (let j = 0; j < holdingB.length; j++) {
-        if (holdingA[i].holdings == holdingB[j].holdings) {
-          holding[k] = {
-            holdingsA: holdingA[i].holdings,
-            holdingsB: holdingB[j].holdings,
-            netAssetA: holdingA[i].netAsset,
-            netAssetB: holdingB[j].netAsset,
-          }
-          k++
-          // overlap percentage
-          percentage += Math.min(holdingA[i].netAsset, holdingB[j].netAsset)
-          break
-        } else {
-          if (j == holdingB.length - 1) {
-            sample[l] = {
-              holdingsA: holdingA[i] ? holdingA[i].holdings : "",
-              holdingsB: "",
-              netAssetA: holdingA[i] ? holdingA[i].netAsset : 0,
-              netAssetB: 0,
-            };
-            l++
-          }
-        }
-      }
-      if (holdingB.length == 0) {
-        holding[k] = {
-          holdingsA: holdingA[i].holdings,
+    
+    holdingA.forEach(a => {
+      const b = holdingB.find(b => b.holdings === a.holdings)
+      if (b) {
+        holding.push({
+          holdingsA: a.holdings,
+          holdingsB: b.holdings,
+          netAssetA: a.netAsset,
+          netAssetB: b.netAsset
+        })
+        percentage += Math.min(a.netAsset, b.netAsset)
+      } else {
+        sample.push({
+          holdingsA: a.holdings,
           holdingsB: "",
-          netAssetA: holdingA[i].netAsset,
-          netAssetB: 0,
-        }
-        k++
+          netAssetA: a.netAsset,
+          netAssetB: 0
+        })
       }
-    }
-
-    // data present in holding B not in A
-    for (let i = 0; i < holdingB.length; i++) {
-      for (let j = 0; j < holdingA.length; j++) {
-        if (holdingA[j].holdings == holdingB[i].holdings) {
-          break
-        } else {
-          if (j == holdingA.length - 1) {
-            sample[l] = {
-              holdingsA: "",
-              holdingsB: holdingB[i] ? holdingB[i].holdings : "",
-              netAssetA: 0,
-              netAssetB: holdingB[i] ? holdingB[i].netAsset : 0,
-            }
-            l++
-          }
-        }
-      }
-      if (holdingA.length == 0) {
-        holding[k] = {
+    })
+    
+    holdingB.forEach(b => {
+      const a = holdingA.find(a => a.holdings === b.holdings)
+      if (!a) {
+        sample.push({
           holdingsA: "",
-          holdingsB: holdingB[i].holdings,
+          holdingsB: b.holdings,
           netAssetA: 0,
-          netAssetB: holdingB[i].netAsset,
-        }
-        k++
+          netAssetB: b.netAsset
+        })
       }
-    }
-
-    //for copy sample data into holding
-    let n = 0
-    for (let i = k; i < k + l - 1; i++) {
-      holding[i] = sample[n];
-      n++
-    }
-
+    })
+    
+    holding = holding.concat(sample)
+    
     // find sumNetAssetHoldingA
     const sumNetAssetHoldingA = holdingA
       .filter((h1) => !holdingB.some((h2) => h2.holdings === h1.holdings))
@@ -133,10 +93,7 @@ const getPortfolioOverlap = async (obj,obj2) => {
     };
     return result
   } catch (error) {
-    response.send({
-      status: -1,
-      message: RESPONSE_MSG.FAILED
-    })
+    throw error 
   }
 }
 

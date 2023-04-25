@@ -1,7 +1,4 @@
-const fs = require("fs")
-const path = require("path")
 const { Sequelize, DataTypes } = require("sequelize")
-const basename = path.basename(module.filename)
 const config = require(__dirname + "/../config/db.json").mysql
 let sequelize = null
 
@@ -103,17 +100,6 @@ sequelize
     console.error("Unable to create table : ", error)
   })
 
-fs.readdirSync(__dirname)
-  .filter((file) => {
-    return (
-      file.indexOf(".") !== 0 && file !== basename && file.slice(-3) === ".js"
-    )
-  })
-  .forEach((file) => {
-    const model = sequelize["import"](path.join(__dirname, file))
-    scheme[model.name] = model
-    schemeholding[model.name] = model
-  })
 
 scheme.sequelize = sequelize
 scheme.Sequelize = Sequelize
