@@ -19,41 +19,41 @@ const getPortfolioOverlap = async (obj,obj2) => {
     let percentage = 0
     let holding = []
     let sample = []
-    
-    holdingA.forEach(a => {
-      const b = holdingB.find(b => b.holdings === a.holdings)
-      if (b) {
-        holding.push({
-          holdingsA: a.holdings,
-          holdingsB: b.holdings,
-          netAssetA: a.netAsset,
-          netAssetB: b.netAsset
-        })
-        percentage += Math.min(a.netAsset, b.netAsset)
-      } else {
-        sample.push({
-          holdingsA: a.holdings,
-          holdingsB: "",
-          netAssetA: a.netAsset,
-          netAssetB: 0
-        })
-      }
+
+holdingA.forEach(a => {
+  const b = holdingB.find(b => b.holdings === a.holdings)
+  if (b) {
+    holding.push({
+      holdingsA: a.holdings,
+      holdingsB: b.holdings,
+      netAssetA: a.netAsset,
+      netAssetB: b.netAsset
     })
-    
-    holdingB.forEach(b => {
-      const a = holdingA.find(a => a.holdings === b.holdings)
-      if (!a) {
-        sample.push({
-          holdingsA: "",
-          holdingsB: b.holdings,
-          netAssetA: 0,
-          netAssetB: b.netAsset
-        })
-      }
+    percentage += Math.min(a.netAsset, b.netAsset)
+  } else {
+    sample.push({
+      holdingsA: a.holdings,
+      holdingsB: "",
+      netAssetA: a.netAsset,
+      netAssetB: 0
     })
-    
-    holding = holding.concat(sample)
-    
+  }
+})
+
+holdingB.forEach(b => {
+  const a = holdingA.find(a => a.holdings === b.holdings)
+  if (!a) {
+    sample.push({
+      holdingsA: "",
+      holdingsB: b.holdings,
+      netAssetA: 0,
+      netAssetB: b.netAsset
+    })
+  }
+})
+
+holding = holding.concat(sample)
+
     // find sumNetAssetHoldingA
     const sumNetAssetHoldingA = holdingA
       .filter((h1) => !holdingB.some((h2) => h2.holdings === h1.holdings))
@@ -87,13 +87,13 @@ const getPortfolioOverlap = async (obj,obj2) => {
         commonHoldings: commonHoldings.length,
         unCommonHoldingsInA: totalHoldingsInA - commonHoldings.length,
         unCommonHoldingsInB: totalHoldingsInB - commonHoldings.length,
-        totalHoldingsInA: totalHoldingsInA,
-        totalHoldingsInB: totalHoldingsInB,
+        totalHoldingsInA,
+        totalHoldingsInB
       },
     };
     return result
   } catch (error) {
-    throw error 
+    throw error
   }
 }
 
