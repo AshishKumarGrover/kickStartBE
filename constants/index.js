@@ -7,7 +7,6 @@ const STATUS = {
     FAILED: -1
 }
 
-const VALIDATION = 3
 const ARRAYLENGTH = 0
 
-module.exports = {VALIDATION, ARRAYLENGTH}
+module.exports = {ARRAYLENGTH, RESPONSE_MSG, STATUS}

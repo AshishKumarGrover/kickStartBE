@@ -1,4 +1,4 @@
-const moment = require('moment')
+
 const { scheme, navHistory } = require('../models/index')
 const { QueryTypes } = require('sequelize')
 const { ARRAYLENGTH } = require('../constants/index.js')
@@ -15,17 +15,17 @@ const getSchemes = async (category) => {
     catch(error){
         return error
     }
-    
 }
 
-const getNavs = async (schid, timePeriod) => {
-    const navData = await navHistory.sequelize.query(`select nav,navDate,schid from navHistory where navDate >= ${moment().subtract(timePeriod, 'months').format('YYYY-MM-DD')} AND schid IN (${schid.join(',')})`)
+const getNavs = async (schid, date) => {
+    let navData = await navHistory.sequelize.query(`select nav,navDate,schid from navHistory where navDate >= ${date} AND schid IN (${schid.join(',')})`)
+    navData = navData[0]
     return navData
 }
 
 const getLaunchDate = async (schid) => {
     try {
-        var launchDate = await navHistory.sequelize.query(`select MIN(navDate) AS 'date' from navHistory where schid = ${schid}`)
+        let launchDate = await navHistory.sequelize.query(`select MIN(navDate) AS 'date' from navHistory where schid = ${schid}`)
         launchDate = launchDate[0][0].date
 
         if (launchDate == null) {
