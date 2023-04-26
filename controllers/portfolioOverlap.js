@@ -1,5 +1,5 @@
 const portfolioOverlap = require("../services/portfolioOverlap")
-const { VALIDATION_CONSTANTS, RESPONSE_MSG } = require("../constants/index")
+const { VALIDATION_CONSTANTS, RESPONSE_MSG,STATUS } = require("../constants/index")
 
 const getSchemes = async (request, response) => {
   try {
@@ -9,13 +9,13 @@ const getSchemes = async (request, response) => {
 
     const schemes = await portfolioOverlap.getSchemes(schemeName)
     response.send({
-      status: 0,
+      status: STATUS.SUCCESS,
       message: RESPONSE_MSG.SUCCESS,
       result: schemes,
     })
   } catch (error) {
     response.send({
-      status: -1,
+      status: STATUS.FAILED,
       message: RESPONSE_MSG.FAILED,
       result: error,
     })
@@ -33,13 +33,13 @@ const getPortfolioOverlap = async (request, response) => {
 
     const schemeHolding = await portfolioOverlap.getPortfolioOverlap(schid1,schid2)
     response.send({
-      status: 0,
+      status: STATUS.SUCCESS,
       message: RESPONSE_MSG.SUCCESS,
       result: schemeHolding,
     })
   } catch (error) {
     response.send({
-      status: -1,
+      status: STATUS.FAILED,
       message: RESPONSE_MSG.FAILED,
       result: error,
     })

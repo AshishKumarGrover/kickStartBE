@@ -1,5 +1,5 @@
 const {getSchemesData,fetchPortfolioOverlap} = require("../repositories/portfolioOverlap")
-const { VALIDATION_CONSTANTS,RESPONSE_MSG} = require("../constants/index")
+const { VALIDATION_CONSTANTS} = require("../constants/index")
 const getSchemes = async (obj) => {
   try {
     return getSchemesData(obj)
@@ -18,10 +18,10 @@ const getPortfolioOverlap = async (obj,obj2) => {
 
     let percentage = 0
     let holding = []
-    let sample = []
+    let unCommonData = []
 
 holdingA.forEach(a => {
-  const b = holdingB.find(b => b.holdings === a.holdings)
+  const b = holdingB.find(b => b.holdings == a.holdings)
   if (b) {
     holding.push({
       holdingsA: a.holdings,
@@ -31,7 +31,7 @@ holdingA.forEach(a => {
     })
     percentage += Math.min(a.netAsset, b.netAsset)
   } else {
-    sample.push({
+    unCommonData.push({
       holdingsA: a.holdings,
       holdingsB: "",
       netAssetA: a.netAsset,
@@ -41,9 +41,9 @@ holdingA.forEach(a => {
 })
 
 holdingB.forEach(b => {
-  const a = holdingA.find(a => a.holdings === b.holdings)
+  const a = holdingA.find(a => a.holdings == b.holdings)
   if (!a) {
-    sample.push({
+    unCommonData.push({
       holdingsA: "",
       holdingsB: b.holdings,
       netAssetA: 0,
@@ -52,21 +52,21 @@ holdingB.forEach(b => {
   }
 })
 
-holding = holding.concat(sample)
+holding = holding.concat(unCommonData)
 
     // find sumNetAssetHoldingA
     const sumNetAssetHoldingA = holdingA
-      .filter((h1) => !holdingB.some((h2) => h2.holdings === h1.holdings))
+      .filter((h1) => !holdingB.some((h2) => h2.holdings == h1.holdings))
       .reduce((total, h1) => total + h1.netAsset, 0)
 
     // find sumNetAssetHoldingB
     const sumNetAssetHoldingB = holdingB
-      .filter((h2) => !holdingA.some((h1) => h1.holdings === h2.holdings))
+      .filter((h2) => !holdingA.some((h1) => h1.holdings == h2.holdings))
       .reduce((total, h2) => total + h2.netAsset, 0)
 
     // for finding common holdings
     const commonHoldings = holdingA.filter((h1) =>
-      holdingB.some((h2) => h2.holdings === h1.holdings)
+      holdingB.some((h2) => h2.holdings == h1.holdings)
     )
 
     const result = {
