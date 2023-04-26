@@ -1,4 +1,3 @@
-const { RESPONSE_MSG } = require("../constants/index")
 const { scheme, schemeholding, sequelize } = require("../models/index")
 const { QueryTypes } = require("sequelize")
 

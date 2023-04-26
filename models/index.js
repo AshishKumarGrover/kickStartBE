@@ -1,4 +1,7 @@
+const fs = require("fs")
+const path = require("path")
 const { Sequelize, DataTypes } = require("sequelize")
+const basename = path.basename(module.filename)
 const config = require(__dirname + "/../config/db.json").mysql
 let sequelize = null
 
