@@ -15,14 +15,27 @@ const getSchemes = async (request, response) => {
         response.send({status: STATUS.SUCCESS, message: RESPONSE_MSG.SUCCESS, result: schemes})
     }
     catch (error) {
-        console.log(error)
         response.send({ status: STATUS.FAILED, message: RESPONSE_MSG.FAILED, result: error })
     }
 }
 
 const getNavs = async (request, response) => {
     try {
-        const schid = JSON.parse(request.query.schid).arr
+        
+        if(!request.query.schid){
+            throw "Please provide schemes"
+        }
+        if(!request.query.timePeriod){
+            throw "Please provide Time Period"
+        }
+
+        let schid
+        if(typeof request.query.schid == String){
+            schid = JSON.parse(request.query.schid).arr
+        }else{
+            schid = (request.query.schid).arr
+        }
+
         const timePeriod = request.query.timePeriod
         const pattern = /^[0-9]+$/
 

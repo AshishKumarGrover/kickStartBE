@@ -61,7 +61,6 @@ const calculateMatrix = async (navData) => {
         }
     })
 
-
     const objKeys = Object.keys(obj)
     // loop to fetch 
     for(let i=0; i<objKeys.length; i++){
@@ -71,7 +70,7 @@ const calculateMatrix = async (navData) => {
             if(objKeys[i] === objKeys[j]){
                 arr.push(0)
             }else{
-                arr.push(correlation)
+                arr.push(correlation.toFixed(2))
             }
         }
         correlationMatrix.push(arr)
