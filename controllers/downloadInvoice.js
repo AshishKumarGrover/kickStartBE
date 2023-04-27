@@ -5,7 +5,11 @@ const { generatePdf } = require('../utils/index')
 
 const downloadInvoiceController = async (request, response) => {
     try{
-        let reqQuery = request.query.data.replaceAll("hashSymbol", "#")
+        const data = request.query.data
+        if(data.length==0){
+            throw "Invalid data"
+        }
+        let reqQuery = data.replaceAll("hashSymbol", "#")
         reqQuery = reqQuery.replaceAll("ampersandSymbol", "&")
         reqQuery = reqQuery.replaceAll("percentageSymbol", "%")
         reqQuery = reqQuery.replaceAll("plusSymbol", "+")
@@ -16,8 +20,7 @@ const downloadInvoiceController = async (request, response) => {
             format: 'A4',
             path: pdfFilePath
         }
-        const file = { content: htmlCode}
-        await generatePdf(file, options)
+        await generatePdf({content: htmlCode}, options)
         response.download("invoice.pdf", "tax-invoice.pdf", function (error) {
             if(error){
                 console.log("Error: ", error)

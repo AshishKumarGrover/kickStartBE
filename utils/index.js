@@ -14,4 +14,3 @@ const generatePdf = async (file, options) => {
 module.exports = {
     generatePdf
 }
-

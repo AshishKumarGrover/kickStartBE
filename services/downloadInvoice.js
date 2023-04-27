@@ -1,9 +1,10 @@
 const axios = require('axios')
+const PYTHON_API = 'http://localhost:8000/pythonDownloadInvoice'
 
 const downloadInvoiceService = async (reqQuery) => {
   try{
   const response = await axios({
-      url: 'http://localhost:8000/pythonDownloadInvoice',
+      url: PYTHON_API,
       method: 'POST',
       data: reqQuery
     })
