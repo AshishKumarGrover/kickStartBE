@@ -4,10 +4,10 @@ const { QueryTypes } = require("sequelize")
 const getSchemesData = async (schemeName) => {
   try {
     const schemes = await scheme.sequelize.query(
-      `SELECT orgsch, schemeDetails.schid 
+      `SELECT shortName, schemeDetails.schid 
             FROM schemeDetails 
-            INNER JOIN schemes ON schemeDetails.schid = schemes.schid 
-            WHERE mfTally ='Y'  AND name like "%${schemeName}%"`,
+            JOIN schemes ON schemeDetails.schid = schemes.schid 
+            WHERE mfTally ='Y'  AND shortName like "%${schemeName}%"`,
       {
         type: QueryTypes.SELECT,
       }
