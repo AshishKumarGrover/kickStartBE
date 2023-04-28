@@ -8,6 +8,10 @@ const getSchemes = async (category) => {
 }
 
 const getNavs = async(schid, timePeriod)=>{
+
+    Math.min(timePeriod)
+
+    console.log("****************timeprerid",timePeriod)
     const date = moment().subtract(timePeriod, 'months').format('YYYY-MM-DD')
     const navData = await query.getNavs(schid, date)
     const correlationMatrix = await calculation.calculateMatrix(navData)
@@ -15,6 +19,7 @@ const getNavs = async(schid, timePeriod)=>{
 }
 
 const getLaunchDate = async(schid)=>{
+
     const launchDate = await query.getLaunchDate(schid)
     return launchDate
 }

@@ -68,7 +68,7 @@ const calculateMatrix = async (navData) => {
         for(let j=0; j<objKeys.length; j++){
             const correlation = await filterObjectData(obj[objKeys[i]], obj[objKeys[j]])
             if(objKeys[i] === objKeys[j]){
-                arr.push(0)
+                arr.push(1)
             }else{
                 arr.push(correlation.toFixed(2))
             }
