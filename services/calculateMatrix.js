@@ -10,8 +10,8 @@ const findCorrelation = async (scheme1, scheme2) => {
     let sumY = 0
     let sumOfX2 = 0
     let sumOfY2 = 0
-    let sqOfSumX = 0
-    let sqOfSumY = 0
+    let squareOfSumX = 0
+    let squareOfSumY = 0
 
     for (let i = 0; i < count; i++) {
         sumXY += (scheme1[i]).nav * (scheme2[i].nav)
@@ -20,14 +20,18 @@ const findCorrelation = async (scheme1, scheme2) => {
         sumOfX2 += Math.pow(scheme1[i].nav, 2)
         sumOfY2 += Math.pow(scheme2[i].nav, 2)
     }
+    sumXY = sumXY.toFixed(2)
+    sumX = sumX.toFixed(2)
+    sumY = sumY.toFixed(2)
+    sumOfX2 = sumOfX2.toFixed(2)
+    sumOfY2 = sumOfY2.toFixed(2)
+    squareOfSumX = (sumX * sumX)
+    squareOfSumY = (sumY * sumY)
 
-    sqOfSumX = sumX * sumX
-    sqOfSumY = sumY * sumY
+    const numerator = (((count) * (sumXY)) - ((sumX) * (sumY)))
+    const denominator = Math.sqrt(((count * sumOfX2) - (squareOfSumX)) * ((count * sumOfY2) - (squareOfSumY)))
 
-    const numenator = (((count) * (sumXY)) - ((sumX) * (sumY)))
-    const denominator = Math.sqrt(((count * sumOfX2) - (sqOfSumX)) * ((count * sumOfY2) - (sqOfSumY)))
-
-    const correlation = numenator / denominator
+    const correlation = numerator / denominator
     return correlation
 }
 
