@@ -1,4 +1,7 @@
+const { SAMESCHEME } = require("../constants")
+
 // function to calculate Correlation between two schemes
+
 const findCorrelation = async (scheme1, scheme2) => {
     const count = scheme1.length
 
@@ -60,7 +63,6 @@ const calculateMatrix = async (navData) => {
             obj[navData[index].schid] = [navData[index]]
         }
     })
-
     const objKeys = Object.keys(obj)
     // loop to fetch 
     for(let i=0; i<objKeys.length; i++){
@@ -68,7 +70,7 @@ const calculateMatrix = async (navData) => {
         for(let j=0; j<objKeys.length; j++){
             const correlation = await filterObjectData(obj[objKeys[i]], obj[objKeys[j]])
             if(objKeys[i] === objKeys[j]){
-                arr.push(1)
+                arr.push(SAMESCHEME)
             }else{
                 arr.push(correlation.toFixed(2))
             }

@@ -8,5 +8,6 @@ const STATUS = {
 }
 
 const ARRAYLENGTH = 0
+const SAMESCHEME = 1.00.toFixed(2)
 
-module.exports = {ARRAYLENGTH, RESPONSE_MSG, STATUS}
+module.exports = {ARRAYLENGTH, RESPONSE_MSG, STATUS , SAMESCHEME}

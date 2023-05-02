@@ -53,6 +53,7 @@ const getNavs = async (request, response) => {
         }
 
         const correlationMatrix = await portfolioCorrelation.getNavs(schid, timePeriod)
+        // console.log("**************correlation",correlationMatrix.length)
         response.send({status: STATUS.SUCCESS, message: RESPONSE_MSG.SUCCESS, result: correlationMatrix})
     }
     catch (error) {

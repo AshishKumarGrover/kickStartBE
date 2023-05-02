@@ -31,6 +31,7 @@ const getLaunchDate = async (schid) => {
         if (launchDate == null) {
             throw "Scheme ID doesn't exist"
         }
+        
         return launchDate
     }
     catch (error) {
