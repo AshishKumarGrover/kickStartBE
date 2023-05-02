@@ -4,9 +4,9 @@ let sequelize = null
 sequelize = new Sequelize(config.database, null, null, config)
 
 sequelize.authenticate().then(() => {
-  console.log("connection est")
+  console.log("connection established")
 }).catch((error) => {
-  console.error("error model", error)
+  console.error("Connection error", error)
 })
 
 
@@ -86,7 +86,7 @@ const navHistory = sequelize.define('navHistory', {
 
 sequelize.sync().then(() => {
 }).catch((error) => {
-  console.error("unable create table", error)
+  console.error("Unable to sync table", error)
 })
 
 scheme.Sequelize = Sequelize
