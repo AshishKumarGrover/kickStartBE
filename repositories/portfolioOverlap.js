@@ -5,9 +5,11 @@ const getSchemesData = async (schemeName) => {
   try {
     const schemes = await scheme.sequelize.query(
       `SELECT shortName, schemeDetails.schid 
-            FROM schemeDetails 
-            JOIN schemes ON schemeDetails.schid = schemes.schid 
-            WHERE mfTally ='Y'  AND shortName like "%${schemeName}%"`,
+        FROM schemeDetails 
+        JOIN schemes ON schemeDetails.schid = schemes.schid 
+        WHERE mfTally ='Y' 
+        AND dirPlan = 0 
+        AND shortName LIKE "%${schemeName}%"`,
       {
         type: QueryTypes.SELECT,
       }
@@ -25,18 +27,22 @@ const fetchPortfolioOverlap = async (schid1,schid2) => {
     } else {
       const holdingA = await schemeholding.sequelize.query(
         `SELECT holdings,netAsset 
-        FROM schemeHolding
-        inner join schemes  
-        where schemes.fsid = schemeHolding.fsid  and schemes.schid= "${schid1}"`,
+         FROM schemeHolding
+         JOIN schemes  
+         WHERE schemes.fsid = schemeHolding.fsid 
+         AND holdings NOT LIKE "Net Receivables%"  
+         AND schemes.schid= "${schid1}"`,
         {
           type: QueryTypes.SELECT,
         }
       )
       const holdingB = await schemeholding.sequelize.query(
         `SELECT holdings,netAsset
-          FROM schemeHolding
-          inner join schemes  
-          where schemes.fsid = schemeHolding.fsid  and schemes.schid= "${schid2}"`,
+         FROM schemeHolding
+         JOIN schemes  
+         WHERE schemes.fsid = schemeHolding.fsid
+         AND holdings NOT LIKE "Net Receivables%" 
+         AND schemes.schid= "${schid2}"`,
         {
           type: QueryTypes.SELECT,
         }
