@@ -30,7 +30,7 @@ const getNavs = async (request, response) => {
         }
 
         let schid
-        if(typeof request.query.schid == String){
+        if(typeof request.query.schid == 'string'){
             schid = JSON.parse(request.query.schid).arr
         }else{
             schid = (request.query.schid).arr

@@ -18,7 +18,7 @@ const getSchemes = async (category) => {
 }
 
 const getNavs = async (schid, date) => {
-            let navData = await navHistory.sequelize.query(`select nav,navDate,schid from navHistory where navDate >= ${date} AND schid IN (${schid.join(',')})`)
+            let navData = await navHistory.sequelize.query(`select nav,navDate,schid from navHistory where navDate >= '${date}' AND schid IN (${schid.join(',')})`)
             navData = navData[0]
             return navData
 }

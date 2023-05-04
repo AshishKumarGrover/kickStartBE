@@ -20,16 +20,16 @@ const findCorrelation = async (scheme1, scheme2) => {
         sumOfX2 += Math.pow(scheme1[i].nav, 2)
         sumOfY2 += Math.pow(scheme2[i].nav, 2)
     }
-    sumXY = sumXY.toFixed(2)
-    sumX = sumX.toFixed(2)
-    sumY = sumY.toFixed(2)
-    sumOfX2 = sumOfX2.toFixed(2)
-    sumOfY2 = sumOfY2.toFixed(2)
+    sumXY = sumXY
+    sumX = sumX
+    sumY = sumY
+    sumOfX2 = sumOfX2
+    sumOfY2 = sumOfY2
     squareOfSumX = (sumX * sumX)
     squareOfSumY = (sumY * sumY)
 
     const numerator = (((count) * (sumXY)) - ((sumX) * (sumY)))
-    const denominator = Math.sqrt(((count * sumOfX2) - (squareOfSumX)) * ((count * sumOfY2) - (squareOfSumY)))
+    const denominator = Math.sqrt(Math.abs(((count * sumOfX2) - (squareOfSumX)) * ((count * sumOfY2) - (squareOfSumY))))
 
     const correlation = numerator / denominator
     return correlation
@@ -76,7 +76,7 @@ const calculateMatrix = async (navData) => {
             if(objKeys[i] === objKeys[j]){
                 arr.push(SAMESCHEME)
             }else{
-                arr.push(correlation.toFixed(2))
+                arr.push(correlation >= 0.99 ? Math.floor(correlation*100)/100 : correlation.toFixed(2))
             }
         }
         correlationMatrix.push(arr)
