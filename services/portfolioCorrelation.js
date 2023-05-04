@@ -15,7 +15,7 @@ const getNavs = async(schid, timePeriod)=>{
     const date = moment().subtract(timePeriod, 'months').format('YYYY-MM-DD')
     const navData = await query.getNavs(schid, date)
     const correlationMatrix = await calculation.calculateMatrix(navData)
-    return navData
+    return correlationMatrix
 }
 
 const getLaunchDate = async(schid)=>{
