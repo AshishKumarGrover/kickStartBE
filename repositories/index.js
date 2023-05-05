@@ -5,16 +5,11 @@ const { ARRAYLENGTH } = require('../constants/index.js')
 
 
 const getSchemes = async (category) => {
-    try{
         const schemes = await scheme.sequelize.query(`select distinct(schemes.schid), name from schemes JOIN navHistory on schemes.schid = navHistory.schid JOIN objectives on schemes.objectiveid = objectives.objectiveid where AUMObjective  = '${category}';`, { type: QueryTypes.SELECT })
         if(schemes.length == ARRAYLENGTH){
             throw "Category doesn't exist"
         }
         return schemes
-    }
-    catch(error){
-        return error
-    }
 }
 
 const getNavs = async (schid, date) => {
@@ -24,19 +19,13 @@ const getNavs = async (schid, date) => {
 }
 
 const getLaunchDate = async (schid) => {
-    try {
         let launchDate = await navHistory.sequelize.query(`select MIN(navDate) AS 'date' from navHistory where schid = ${schid}`)
         launchDate = launchDate[0][0].date
 
         if (launchDate == null) {
             throw "Scheme ID doesn't exist"
         }
-        
         return launchDate
-    }
-    catch (error) {
-        return error
-    }
 }
 
 module.exports = {
