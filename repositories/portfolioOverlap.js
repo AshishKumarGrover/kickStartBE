@@ -1,8 +1,7 @@
-const { scheme, schemeholding, sequelize } = require("../models/index")
-const { QueryTypes } = require("sequelize")
+const {scheme, schemeholding, sequelize} = require('../models/index')
+const {QueryTypes} = require('sequelize')
 
 const getSchemesData = async (schemeName) => {
-  try {
     const schemes = await scheme.sequelize.query(
       `SELECT shortName, schemeDetails.schid 
         FROM schemeDetails 
@@ -15,16 +14,9 @@ const getSchemesData = async (schemeName) => {
       }
     )
     return schemes
-  } catch (error) {
-    throw error
   }
-}
 
 const fetchPortfolioOverlap = async (schid1,schid2) => {
-  try {
-    if (!schid1 || !schid2) {
-      return "Enter scheme Id"
-    } else {
       const holdingA = await schemeholding.sequelize.query(
         `SELECT holdings,netAsset 
          FROM schemeHolding
@@ -49,10 +41,6 @@ const fetchPortfolioOverlap = async (schid1,schid2) => {
       )
       return { holdingA, holdingB }
     }
-  } catch (error) {
-    throw error
-  }
-}
 
 module.exports = {
   getSchemesData,

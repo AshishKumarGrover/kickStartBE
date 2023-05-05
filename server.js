@@ -9,7 +9,5 @@ app.use('/', require('./routes'))    //using api from the router
 app.all('/*', (req, res) => {
   res.status(404).send('API Not Found')
 })
-
 //running the server
 app.listen(3000, () => { console.log(`Express server listening on port 3000`) }) 
-  
