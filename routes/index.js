@@ -1,9 +1,7 @@
 const express = require('express')
 const router = express.Router()
-const sipCalculatorCtrl = require('../controllers/sipCalculator')
+const downloadInvoice = require('../controllers/downloadInvoice')
 
-router.post('/sipCalculator', sipCalculatorCtrl.sipCalculator)
-router.post('/sipStepUpCalculator', sipCalculatorCtrl.sipStepUpCalculator)
-router.post('/sipDelayCalculator', sipCalculatorCtrl.sipDelayCalculator)
+router.get('/downloadInvoice', downloadInvoice.downloadInvoiceController)
 
 module.exports = router
