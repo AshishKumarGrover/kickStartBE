@@ -7,8 +7,7 @@ const getSchemes = async (schemeName) => {
 // Calculate Portfolio Ovelap  
 const getPortfolioOverlap = async (schid1, schid2) => {
   const schemeHoldings = await fetchPortfolioOverlap(schid1, schid2)
-  const holdingA = schemeHoldings.holdingA
-  const holdingB = schemeHoldings.holdingB
+  const {holdingA, holdingB} = schemeHoldings
 
   let percentage = 0
   let holding = []
@@ -17,37 +16,37 @@ const getPortfolioOverlap = async (schid1, schid2) => {
   let commonHoldingASum = 0
   let commonHoldingBSum = 0
 
-  holdingA.forEach((a) => {
-    const b = holdingB.find((b) => b.holdings == a.holdings)
-    if (b) {
+  holdingA.forEach((item1) => {
+    const item2 = holdingB.find((data) => data.holdings == item1.holdings)
+    if (item2) {
       holding.push({
-        holdingsA: a.holdings,
-        holdingsB: b.holdings,
-        netAssetA: a.netAsset,
-        netAssetB: b.netAsset
+        holdingsA: item1.holdings,
+        holdingsB: item2.holdings,
+        netAssetA: item1.netAsset,
+        netAssetB: item2.netAsset
       })
       commonHoldings++
-      commonHoldingASum = commonHoldingASum + a.netAsset
-      commonHoldingBSum = commonHoldingBSum + b.netAsset
-      percentage += Math.min(a.netAsset, b.netAsset)
+      commonHoldingASum = commonHoldingASum + item1.netAsset
+      commonHoldingBSum = commonHoldingBSum + item2.netAsset
+      percentage += Math.min(item1.netAsset, item2.netAsset)
     } else {
       unCommonData.push({
-        holdingsA: a.holdings,
-        holdingsB: "",
-        netAssetA: a.netAsset,
+        holdingsA: item1.holdings,
+        holdingsB: '',
+        netAssetA: item1.netAsset,
         netAssetB: 0
       })
     }
   })
 
-  holdingB.forEach((b) => {
-    const a = holdingA.find((a) => a.holdings == b.holdings)
-    if (!a) {
+  holdingB.forEach((item2) => {
+    const item1 = holdingA.find((data) => data.holdings == item2.holdings)
+    if (!item1) {
       unCommonData.push({
-        holdingsA: "",
-        holdingsB: b.holdings,
+        holdingsA: '',
+        holdingsB: item2.holdings,
         netAssetA: 0,
-        netAssetB: b.netAsset
+        netAssetB: item2.netAsset
       })
     }
   })

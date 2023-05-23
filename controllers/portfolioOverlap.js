@@ -1,13 +1,12 @@
 const portfolioOverlap = require('../services/portfolioOverlap')
-const { RESPONSE_MSG, RESPONSE_STATUS, VALIDATION_CONSTANTS } = require('../constants/index')
+const { RESPONSE_MSG, RESPONSE_STATUS } = require('../constants/index')
 
 const getSchemes = async (request, response) => {
   try {
     let schemeName = request.query.schemeName
     schemeName = schemeName.trim()
     if (!schemeName)
-      throw "Invalid Scheme Name"
-
+      throw 'Invalid Scheme Name'
     const schemes = await portfolioOverlap.getSchemes(schemeName)
     response.send({
       status: RESPONSE_STATUS.SUCCESS,
@@ -28,11 +27,8 @@ const getPortfolioOverlap = async (request, response) => {
     schid1 = parseInt(schid1)
     schid2 = parseInt(schid2)
 
-    if (!schid1 || schid1 < VALIDATION_CONSTANTS.SCHEME_ID)
-      throw `Invalid schid1 ${schid1}`
-
-    if (!schid2 || schid2 < VALIDATION_CONSTANTS.SCHEME_ID)
-      throw `Invalid schid2 ${schid2}`
+    if (!schid1 || !schid2)
+      throw 'Invalid schid'
 
     const schemeHolding = await portfolioOverlap.getPortfolioOverlap(schid1, schid2)
     response.send({

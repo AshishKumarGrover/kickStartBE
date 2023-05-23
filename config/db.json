@@ -1,10 +1,10 @@
 {
     "mysql": {
         "replication": {
-          "read": [{ "host": "127.0.0.1","username": "root", "password": "123456" }],
-          "write": { "host": "127.0.0.1","username": "root", "password": "123456" }
+          "read": [{ "host": "127.0.0.1","username": "root", "password": "hiM98896*" }],
+          "write": { "host": "127.0.0.1","username": "root", "password": "hiM98896*" }
         },
-        "database": "iwell2_new",
+        "database": "iwell3_new",
         "dialect": "mysql",
         "logging": true,
         "timezone": "+05:30",
