@@ -4,7 +4,7 @@
           "read": [{ "host": "127.0.0.1","username": "root", "password": "123456" }],
           "write": { "host": "127.0.0.1","username": "root", "password": "123456" }
         },
-        "database": "iwell2_new",
+        "database": "iwell3_new",
         "dialect": "mysql",
         "logging": true,
         "timezone": "+05:30",
